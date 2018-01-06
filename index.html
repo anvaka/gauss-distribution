@@ -17,12 +17,13 @@ var colorSet = new Map(); // maps color value to pixel info
 
 var img = document.createElement('img');
 var canvas = document.createElement('canvas');
-
 var ctx;
-var moveFrames = 120;
-var maxColorsInBin = 0;
+
 // I use state to determine whether it should expand or collapse
 var currentStage = 1;
+
+// This is to properly scale the height of the chart
+var maxColorsInBin = 0;
 
 // Width and height of the working image
 var width, height;
