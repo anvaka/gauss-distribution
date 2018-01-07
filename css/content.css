@@ -1,0 +1,20 @@
+.imageContainer{
+  text-align: center;
+}
+
+.uploadContainer{
+  text-align: center;
+}
+
+#progressBarContainer {
+    width: 100%;
+    background-color: grey;
+}
+#progressBar {
+    width: 0%;
+    height: 30px;
+    background-color: green;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
