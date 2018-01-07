@@ -26,14 +26,12 @@
   <a href="https://github.com/Keydex/gauss-distribution" class="btn">Website Fork Github</a>
 </section>
 <section class="main-content">
-  <p> Insert URL of image below to run. </p>
+  <p> Insert URL of image below to run. (Some links may not work due to their website CORS policy.)</p>
   <div id="upload" class="uploadContainer">
     <input id="newURL" type="text"></input>
     <button onclick="newSrc()">Start</button>
-  </div>
-  <br>
-  <div id="progressBarContainer">
-    <div id="progressBar"></div>
+    <br>
+    The Larger the Image, the longer it will take to process
   </div>
 </br>
 
@@ -68,12 +66,11 @@ img.crossOrigin = 'Anonymous';
 
 // When image is loaded - run the code.
 img.onload = function() {
-  updateProgress(0);
   width = canvas.width = img.width;
   height = canvas.height = img.height;
   totalPixels = width*height;
   if(totalPixels> 1000000){
-    var confirmVal = confirm("Warning, Images larger than 720p may cause the app to lockup or be very slow. Press Ok to continue");
+    var confirmVal = confirm("Warning, Images larger than 720p may take a long time load, process and playback. Consider lowering the resolution of your image. Press OK to continue");
     if (confirmVal == false) {
       console.log("User Cancelled Image");
       return;
@@ -92,14 +89,6 @@ function newSrc() {
   img.src = document.getElementById('newURL').value; //This should automatically trigger img.onload
 }
 
-var barWidth = 0;
-
-//updateProgressbar
-function updateProgress(newWidth) {
-  console.log("Attempting to change progress" + newWidth)
-  document.getElementById("progressBar").style.width = barWidth + '%';
-  document.getElementById("progressBar").innerHTML = barWidth * 1  + '%';
-}
 
 function start() {
   ctx = canvas.getContext('2d');
@@ -113,8 +102,6 @@ function start() {
   var pixels = imgData.data;
   // We are going to collect pixel values first
   for (var x = 0; x < width; ++x) {
-    barWidth = Math.round(x*height*100/totalPixels);
-    updateProgress(barWidth);
     for (var y = 0; y < height; ++y) {
       var i = (x + y * width) * 4;
       var r = pixels[i + 0];
@@ -155,7 +142,6 @@ function start() {
       if (pixelInfo.points.length > maxColorsInBin) maxColorsInBin = pixelInfo.points.length;
     }
   }
-  // updateProgress(100);
 
   // Now that we have all pixels collected, lets figure out.
   computeDestinations();
