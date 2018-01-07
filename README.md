@@ -6,3 +6,8 @@ Results [are here](https://www.reddit.com/r/dataisbeautiful/comments/7ol3gy/gaus
 
 The code is all in one file, and [I tried to document it](https://github.com/anvaka/gauss-distribution/blob/master/index.html).
 Please do not hesitate to ask any questions if something isn't documented well enough.
+
+
+#Website theme
+Website Theme used is Cayman by jasonlong.
+https://github.com/jasonlong/cayman-theme
