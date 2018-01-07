@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
   <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/content.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/cayman.css">
 </head>
@@ -21,19 +22,21 @@
 <section class="page-header">
   <h1 class="project-name">Gaussian Distribution</h1>
   <h2 class="project-tagline">A responsive theme for your project on GitHub Pages</h2>
-  <a href="https://github.com/jasonlong/cayman-theme" class="btn">GitHub Source</a>
+  <a href="https://github.com/anvaka/gauss-distribution" class="btn">View on GitHub</a>
 </section>
 <section class="main-content">
-  <p> Currently under development, however you can upload your image and test it.</p>
-  <p> Insert the URL of your image below and press Start, file upload in development. </p>
+  <p> Insert URL of image below to run. (Some links may not work due to their website CORS policy.)</p>
   <div id="upload" class="uploadContainer">
     <input id="newURL" type="text"></input>
     <button onclick="newSrc()">Start</button>
+    <br>
+    The Larger the Image, the longer it will take to process
   </div>
 </br>
-  <div id="imageContainer" class="imageContainer">
-  </div>
+
 </section>
+<div id="imageContainer" class="imageContainer">
+</div>
 
 
 
@@ -55,7 +58,7 @@ var maxColorsInBin = 0;
 
 // Width and height of the working image
 var width, height;
-
+var totalPixels;
 // Make sure image has CORS setup, otherwise we will not have access
 // to it
 img.crossOrigin = 'Anonymous';
@@ -64,6 +67,14 @@ img.crossOrigin = 'Anonymous';
 img.onload = function() {
   width = canvas.width = img.width;
   height = canvas.height = img.height;
+  totalPixels = width*height;
+  if(totalPixels> 1000000){
+    var confirmVal = confirm("Warning, Images larger than 720p may take a long time load, process and playback. Consider lowering the resolution of your image. Press OK to continue");
+    if (confirmVal == false) {
+      console.log("User Cancelled Image");
+      return;
+    }
+  }
 
   start();
 }
@@ -88,7 +99,6 @@ function start() {
 
   var imgData = ctx.getImageData(0, 0, width, height);
   var pixels = imgData.data;
-
   // We are going to collect pixel values first
   for (var x = 0; x < width; ++x) {
     for (var y = 0; y < height; ++y) {
