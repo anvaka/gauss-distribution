@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
   <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/content.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/cayman.css">
 </head>
@@ -21,20 +22,24 @@
 <section class="page-header">
   <h1 class="project-name">Gaussian Distribution</h1>
   <h2 class="project-tagline">A responsive theme for your project on GitHub Pages</h2>
-  <a href="https://github.com/jasonlong/cayman-theme" class="btn">View on GitHub</a>
+  <a href="https://github.com/anvaka/gauss-distribution" class="btn">View on GitHub</a>
   <a href="https://github.com/Keydex/gauss-distribution" class="btn">Website Fork Github</a>
 </section>
 <section class="main-content">
-  <p> Currently under development, however you can upload your image and test it.</p>
-  <p> Insert the URL of your image below and press Start, file upload in development. </p>
+  <p> Insert URL of image below to run. </p>
   <div id="upload" class="uploadContainer">
     <input id="newURL" type="text"></input>
     <button onclick="newSrc()">Start</button>
   </div>
-</br>
-  <div id="imageContainer" class="imageContainer">
+  <br>
+  <div id="progressBarContainer">
+    <div id="progressBar"></div>
   </div>
+</br>
+
 </section>
+<div id="imageContainer" class="imageContainer">
+</div>
 
 
 
@@ -56,15 +61,24 @@ var maxColorsInBin = 0;
 
 // Width and height of the working image
 var width, height;
-
+var totalPixels;
 // Make sure image has CORS setup, otherwise we will not have access
 // to it
 img.crossOrigin = 'Anonymous';
 
 // When image is loaded - run the code.
 img.onload = function() {
+  updateProgress(0);
   width = canvas.width = img.width;
   height = canvas.height = img.height;
+  totalPixels = width*height;
+  if(totalPixels> 1000000){
+    var confirmVal = confirm("Warning, Images larger than 720p may cause the app to lockup or be very slow. Press Ok to continue");
+    if (confirmVal == false) {
+      console.log("User Cancelled Image");
+      return;
+    }
+  }
 
   start();
 }
@@ -78,6 +92,14 @@ function newSrc() {
   img.src = document.getElementById('newURL').value; //This should automatically trigger img.onload
 }
 
+var barWidth = 0;
+
+//updateProgressbar
+function updateProgress(newWidth) {
+  console.log("Attempting to change progress" + newWidth)
+  document.getElementById("progressBar").style.width = barWidth + '%';
+  document.getElementById("progressBar").innerHTML = barWidth * 1  + '%';
+}
 
 function start() {
   ctx = canvas.getContext('2d');
@@ -89,9 +111,10 @@ function start() {
 
   var imgData = ctx.getImageData(0, 0, width, height);
   var pixels = imgData.data;
-
   // We are going to collect pixel values first
   for (var x = 0; x < width; ++x) {
+    barWidth = Math.round(x*height*100/totalPixels);
+    updateProgress(barWidth);
     for (var y = 0; y < height; ++y) {
       var i = (x + y * width) * 4;
       var r = pixels[i + 0];
@@ -132,6 +155,7 @@ function start() {
       if (pixelInfo.points.length > maxColorsInBin) maxColorsInBin = pixelInfo.points.length;
     }
   }
+  // updateProgress(100);
 
   // Now that we have all pixels collected, lets figure out.
   computeDestinations();
