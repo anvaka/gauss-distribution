@@ -1,0 +1,23 @@
+{
+  "name": "gauss-distribution",
+  "version": "1.0.0",
+  "description": "Fork to create website interface for GaussDist",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keydex/gauss-distribution.git"
+  },
+  "author": "Keydex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Keydex/gauss-distribution/issues"
+  },
+  "homepage": "https://github.com/Keydex/gauss-distribution#readme",
+  "devDependencies": {
+    "browser-sync": "^2.23.3",
+    "gulp": "^3.9.1"
+  }
+}
