@@ -104,13 +104,13 @@ function start() {
   setTimeout(() => { requestAnimationFrame(move); }, 1000);
 }
 
-function interploate(t) {
+function interpolate(t) {
   // This is easeInOutQuad function. See more here https://gist.github.com/gre/1650294
   return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
 
 function lerp(a, b, t) {
-  // simple linear interploation.
+  // simple linear interpolation.
   return b * t + a * (1 - t);
 }
 
@@ -130,7 +130,7 @@ function move() {
   colorSet.forEach((pixelInfo, colorKey) => {
     pixelInfo.points.forEach((point) => {
       // given current frame, use easing to figure out offset of a pixel
-      var t = interploate(point.frame/point.timeSpan);
+      var t = interpolate(point.frame/point.timeSpan);
 
       if (currentStage === 1 && point.frame < point.timeSpan) {
         point.frame += 1;
