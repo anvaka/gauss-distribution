@@ -8,3 +8,5 @@ The code is all in one file, and [I tried to document it](https://github.com/anv
 Please do not hesitate to ask any questions if something isn't documented well enough.
 
 If you'd like to build a histogram from arbitrary image, I have a website for you: https://anvaka.github.io/pixchart/
+
+See also: [The Mona Lisa's distribution of pixels](https://www.reddit.com/r/dataisbeautiful/comments/b09xvq/oc_the_mona_lisas_distribution_of_pixels/)
